@@ -30,7 +30,11 @@ class _AliceCallRequestWidget extends AliceBaseCallDetailsWidgetState<AliceCallR
     if (body != null) {
       bodyContent = formatBody(body, getContentType(_call.request!.headers));
     }
-    rows.add(getListRow('Body:', bodyContent));
+    if (_call.endpoint == '/connect/token') {
+      rows.add(getListRow('Body:', '...'));
+    } else {
+      rows.add(getListRow('Body:', bodyContent));
+    }
     final formDataFields = _call.request!.formDataFields;
     if (formDataFields?.isNotEmpty == true) {
       rows.add(getListRow('Form data fields: ', ''));

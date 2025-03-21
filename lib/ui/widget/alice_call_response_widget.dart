@@ -16,8 +16,7 @@ class AliceCallResponseWidget extends StatefulWidget {
   }
 }
 
-class _AliceCallResponseWidgetState
-    extends AliceBaseCallDetailsWidgetState<AliceCallResponseWidget> {
+class _AliceCallResponseWidgetState extends AliceBaseCallDetailsWidgetState<AliceCallResponseWidget> {
   static const _imageContentType = 'image';
   static const _videoContentType = 'video';
   static const _jsonContentType = 'json';
@@ -133,8 +132,7 @@ class _AliceCallResponseWidgetState
               return Center(
                 child: CircularProgressIndicator(
                   value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
+                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
                       : null,
                 ),
               );
@@ -163,8 +161,7 @@ class _AliceCallResponseWidgetState
         ..add(
           ElevatedButton(
             style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(AliceConstants.lightRed),
+              backgroundColor: MaterialStateProperty.all<Color>(AliceConstants.lightRed),
             ),
             onPressed: () {
               setState(() {
@@ -183,9 +180,12 @@ class _AliceCallResponseWidgetState
   List<Widget> _buildTextBodyRows() {
     final rows = <Widget>[];
     final headers = _call.response!.headers;
-    final bodyContent =
-        formatBody(_call.response!.body, getContentType(headers));
-    rows.add(getListRow('Body:', bodyContent));
+    final bodyContent = formatBody(_call.response!.body, getContentType(headers));
+    if (_call.endpoint == '/connect/token') {
+      rows.add(getListRow('Body:', '...'));
+    } else {
+      rows.add(getListRow('Body:', bodyContent));
+    }
     return rows;
   }
 
@@ -218,9 +218,12 @@ class _AliceCallResponseWidgetState
     final contentType = getContentType(headers) ?? '<unknown>';
 
     if (_showUnsupportedBody) {
-      final bodyContent =
-          formatBody(_call.response!.body, getContentType(headers));
-      rows.add(getListRow('Body:', bodyContent));
+      final bodyContent = formatBody(_call.response!.body, getContentType(headers));
+      if (_call.endpoint == '/connect/token') {
+        rows.add(getListRow('Body:', '...'));
+      } else {
+        rows.add(getListRow('Body:', bodyContent));
+      }
     } else {
       rows
         ..add(
@@ -234,8 +237,7 @@ class _AliceCallResponseWidgetState
         ..add(
           ElevatedButton(
             style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(AliceConstants.lightRed),
+              backgroundColor: MaterialStateProperty.all<Color>(AliceConstants.lightRed),
             ),
             onPressed: () {
               setState(() {
@@ -264,20 +266,15 @@ class _AliceCallResponseWidgetState
   }
 
   bool _isImageResponse() {
-    return _getContentTypeOfResponse()!
-        .toLowerCase()
-        .contains(_imageContentType);
+    return _getContentTypeOfResponse()!.toLowerCase().contains(_imageContentType);
   }
 
   bool _isVideoResponse() {
-    return _getContentTypeOfResponse()!
-        .toLowerCase()
-        .contains(_videoContentType);
+    return _getContentTypeOfResponse()!.toLowerCase().contains(_videoContentType);
   }
 
   bool _isTextResponse() {
-    final responseContentTypeLowerCase =
-        _getContentTypeOfResponse()!.toLowerCase();
+    final responseContentTypeLowerCase = _getContentTypeOfResponse()!.toLowerCase();
 
     return responseContentTypeLowerCase.contains(_jsonContentType) ||
         responseContentTypeLowerCase.contains(_xmlContentType) ||
@@ -289,7 +286,6 @@ class _AliceCallResponseWidgetState
   }
 
   bool _isLargeResponseBody() {
-    return _call.response!.body != null &&
-        _call.response!.body.toString().length > _kLargeOutputSize;
+    return _call.response!.body != null && _call.response!.body.toString().length > _kLargeOutputSize;
   }
 }
