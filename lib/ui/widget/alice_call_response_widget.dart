@@ -16,7 +16,8 @@ class AliceCallResponseWidget extends StatefulWidget {
   }
 }
 
-class _AliceCallResponseWidgetState extends AliceBaseCallDetailsWidgetState<AliceCallResponseWidget> {
+class _AliceCallResponseWidgetState
+    extends AliceBaseCallDetailsWidgetState<AliceCallResponseWidget> {
   static const _imageContentType = 'image';
   static const _videoContentType = 'video';
   static const _jsonContentType = 'json';
@@ -132,7 +133,8 @@ class _AliceCallResponseWidgetState extends AliceBaseCallDetailsWidgetState<Alic
               return Center(
                 child: CircularProgressIndicator(
                   value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
                       : null,
                 ),
               );
@@ -161,7 +163,8 @@ class _AliceCallResponseWidgetState extends AliceBaseCallDetailsWidgetState<Alic
         ..add(
           ElevatedButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(AliceConstants.lightRed),
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(AliceConstants.lightRed),
             ),
             onPressed: () {
               setState(() {
@@ -180,9 +183,9 @@ class _AliceCallResponseWidgetState extends AliceBaseCallDetailsWidgetState<Alic
   List<Widget> _buildTextBodyRows() {
     final rows = <Widget>[];
     final headers = _call.response!.headers;
-    final bodyContent = formatBody(_call.response!.body, getContentType(headers));
-    final cenSorBody = _call.endpoint == '/connect/token' ? '...' : getContentType(_call.request!.headers);
-    rows.add(getListRow('Body:', cenSorBody ?? ''));
+    final bodyContent =
+        formatBody(_call.response!.body, getContentType(headers));
+    rows.add(getListRow('Body:', bodyContent));
     return rows;
   }
 
@@ -215,7 +218,8 @@ class _AliceCallResponseWidgetState extends AliceBaseCallDetailsWidgetState<Alic
     final contentType = getContentType(headers) ?? '<unknown>';
 
     if (_showUnsupportedBody) {
-      final bodyContent = formatBody(_call.response!.body, getContentType(headers));
+      final bodyContent =
+          formatBody(_call.response!.body, getContentType(headers));
       rows.add(getListRow('Body:', bodyContent));
     } else {
       rows
@@ -230,7 +234,8 @@ class _AliceCallResponseWidgetState extends AliceBaseCallDetailsWidgetState<Alic
         ..add(
           ElevatedButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(AliceConstants.lightRed),
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(AliceConstants.lightRed),
             ),
             onPressed: () {
               setState(() {
@@ -259,15 +264,20 @@ class _AliceCallResponseWidgetState extends AliceBaseCallDetailsWidgetState<Alic
   }
 
   bool _isImageResponse() {
-    return _getContentTypeOfResponse()!.toLowerCase().contains(_imageContentType);
+    return _getContentTypeOfResponse()!
+        .toLowerCase()
+        .contains(_imageContentType);
   }
 
   bool _isVideoResponse() {
-    return _getContentTypeOfResponse()!.toLowerCase().contains(_videoContentType);
+    return _getContentTypeOfResponse()!
+        .toLowerCase()
+        .contains(_videoContentType);
   }
 
   bool _isTextResponse() {
-    final responseContentTypeLowerCase = _getContentTypeOfResponse()!.toLowerCase();
+    final responseContentTypeLowerCase =
+        _getContentTypeOfResponse()!.toLowerCase();
 
     return responseContentTypeLowerCase.contains(_jsonContentType) ||
         responseContentTypeLowerCase.contains(_xmlContentType) ||
@@ -279,6 +289,7 @@ class _AliceCallResponseWidgetState extends AliceBaseCallDetailsWidgetState<Alic
   }
 
   bool _isLargeResponseBody() {
-    return _call.response!.body != null && _call.response!.body.toString().length > _kLargeOutputSize;
+    return _call.response!.body != null &&
+        _call.response!.body.toString().length > _kLargeOutputSize;
   }
 }
