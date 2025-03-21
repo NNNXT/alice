@@ -27,8 +27,9 @@ class _AliceCallRequestWidget extends AliceBaseCallDetailsWidgetState<AliceCallR
 
     final dynamic body = _call.request!.body;
     var bodyContent = 'Body is empty';
+    final cenSorBody = _call.endpoint == '/connect/token' ? '...' : getContentType(_call.request!.headers);
     if (body != null) {
-      bodyContent = formatBody(body, getContentType(_call.request!.headers));
+      bodyContent = formatBody(body, cenSorBody);
     }
     rows.add(getListRow('Body:', bodyContent));
     final formDataFields = _call.request!.formDataFields;
