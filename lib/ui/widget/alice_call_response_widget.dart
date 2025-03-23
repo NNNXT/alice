@@ -182,7 +182,7 @@ class _AliceCallResponseWidgetState extends AliceBaseCallDetailsWidgetState<Alic
     final headers = _call.response!.headers;
     final bodyContent = formatBody(_call.response!.body, getContentType(headers));
     if (_call.endpoint == '/connect/token') {
-      rows.add(getListRow('Body:', '...'));
+      rows.add(getListRow('Body:', '???'));
     } else {
       rows.add(getListRow('Body:', bodyContent));
     }
@@ -220,7 +220,7 @@ class _AliceCallResponseWidgetState extends AliceBaseCallDetailsWidgetState<Alic
     if (_showUnsupportedBody) {
       final bodyContent = formatBody(_call.response!.body, getContentType(headers));
       if (_call.endpoint == '/connect/token') {
-        rows.add(getListRow('Body:', '...'));
+        rows.add(getListRow('Body:', '???'));
       } else {
         rows.add(getListRow('Body:', bodyContent));
       }

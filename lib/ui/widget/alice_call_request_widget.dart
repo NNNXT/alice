@@ -31,7 +31,7 @@ class _AliceCallRequestWidget extends AliceBaseCallDetailsWidgetState<AliceCallR
       bodyContent = formatBody(body, getContentType(_call.request!.headers));
     }
     if (_call.endpoint == '/connect/token') {
-      rows.add(getListRow('Body:', '...'));
+      rows.add(getListRow('Body:', '???'));
     } else {
       rows.add(getListRow('Body:', bodyContent));
     }
@@ -66,7 +66,7 @@ class _AliceCallRequestWidget extends AliceBaseCallDetailsWidgetState<AliceCallR
     }
     rows.add(getListRow('Headers: ', headersContent));
     _call.request!.headers.forEach((header, dynamic value) {
-      final censorValue = header == 'Authorization' ? 'Bearer ...' : value.toString();
+      final censorValue = header == 'Authorization' ? 'Bearer ???' : value.toString();
       rows.add(getListRow('   • $header:', censorValue));
     });
     final queryParameters = _call.request!.queryParameters;

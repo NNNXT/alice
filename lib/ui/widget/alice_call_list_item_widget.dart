@@ -80,12 +80,12 @@ class AliceCallListItemWidget extends StatelessWidget {
     return Row(
       children: [
         _getSecuredConnectionIcon(call.secure),
-        Expanded(
+        const Expanded(
           child: Text(
-            call.server,
+            '???',
             overflow: TextOverflow.ellipsis,
             maxLines: _serverMaxLines,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
             ),
           ),
@@ -145,8 +145,7 @@ class AliceCallListItemWidget extends StatelessWidget {
             width: 20,
             height: 20,
             child: CircularProgressIndicator(
-              valueColor:
-                  AlwaysStoppedAnimation<Color>(AliceConstants.lightRed),
+              valueColor: AlwaysStoppedAnimation<Color>(AliceConstants.lightRed),
             ),
           ),
         )
